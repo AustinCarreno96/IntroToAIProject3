@@ -1,9 +1,7 @@
-import main
 
 
 
 def writeToTheFile(attribute_dict, statement_count):
-    print(attribute_dict['count'])
     test_file = open("try2.txt", "w")
     test_file.write('c\n' + 'c This is a test file for CLASP\n' + 'c\n' + 'p cnf ' + str(attribute_dict['count']) +
                     ' ' + str(statement_count) + ' \n' + str(attribute_dict['list'][0]) + ' ' +

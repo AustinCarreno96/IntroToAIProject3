@@ -3,7 +3,17 @@ import os
 import platform
 import WriteToInputFile
 
+# TODO: Things Needed to Be Done
+#       - Update where the file we're opening to be a selected file from the GUI rather than my test file
+#       - Possibly take the file path given rather than just file name
+#       - Update CLASP for Windows devices
+#       - Convert numbers back to attributes after CLASP solves problem
+#       - Create feasible objects from hard constraints
 
+# TODO: Notes
+#       - We do not convert penalty and possibilistic logic to CNF
+#       - Take hard constraint and make feasible objects, from there apply penalty and possibilistic logic on those
+#         objects
 
 def main():
     statement_count = 0
@@ -15,13 +25,11 @@ def main():
     attribute_dict = convertAttributesToNumbers(attributes)
     WriteToInputFile.writeToTheFile(attribute_dict, statement_count)
     test_file = 'try2.txt'
-    if platform.system() == "Darwin":
-# ----------------------------------------------------------------------------------------------------------------------
 
-# ----------------------------------------------------------------------------------------------------------------------
+    if platform.system() == "Darwin":
         os.system("clasp " + test_file + " -n 2 > TEST.txt")
     else:
-        print("Need file path for CLASP")
+        os.system("clasp " + test_file + " -n 2 > TEST.txt")
 
     myPyGUI = PyGUI()
 
