@@ -1,5 +1,5 @@
 c
 c This is a test file for CLASP
 c
-p cnf 2 1 
--1 -2 0
+p cnf 8 0 
+1 -1 0

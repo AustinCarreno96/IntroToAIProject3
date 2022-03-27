@@ -1,10 +1,10 @@
 c clasp version 3.3.6
-c Reading from try2.txt
+c Reading from CNF.txt
 c Solving...
 c Answer: 1
-v -1 -2 0
+v -1 -2 -3 -4 -5 -6 -7 -8 0
 c Answer: 2
-v -1 2 0
+v -1 2 -3 -4 -5 -6 -7 -8 0
 s SATISFIABLE
 c 
 c Models         : 2+

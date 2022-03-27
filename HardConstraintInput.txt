@@ -1,0 +1,2 @@
+soup OR fish OR ice-cream
+salad OR beef
