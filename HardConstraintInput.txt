@@ -1,2 +1,5 @@
 soup OR fish OR ice-cream
 salad OR beef
+salad OR beer
+beef OR cake
+fish OR cake

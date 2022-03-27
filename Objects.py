@@ -23,7 +23,6 @@ class Attributes:
         attribute_type = []
 
         attributes_split_by_type = self.openFile().read().split('\n')
-        # attributes_split_by_type = attributes_listed.split('\n')
 
         for index in range(len(attributes_split_by_type)):
             attributes_split_from_type.append(attributes_split_by_type[index].split(': '))
@@ -32,11 +31,21 @@ class Attributes:
             individual_attributes.append(attributes_split_from_type[index][1].split(', '))
 
             attribute_objects.append([attribute_type[index],
-                                      individual_attributes[index][0], individual_attributes[index][1]])
+                                      individual_attributes[index][0],
+                                      individual_attributes[index][1]])
 
         return attribute_objects
 
 
+
+
+
+class PenaltyLogic:
+    # Add parameters later
+    def __init__(self):
+        self.title = ''
+        self.logic_list = []
+        self.penalty = 0
 
 
 
