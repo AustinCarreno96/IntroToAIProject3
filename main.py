@@ -26,8 +26,14 @@ def main():
     input_dict = {
         'attributes': [],
         'hard_constraints': [],
-        'penalty_logic': [],
-        'possibilistic_logic': [],
+        'penalty_logic': {
+            'logic_stmts': [],
+            'penalty': []
+        },
+        'possibilistic_logic': {
+            'logic_stmts': [],
+            'tolerance': []
+        },
         'qualitative_choice_logic': []
     }
 
@@ -39,6 +45,8 @@ def main():
     hard_constraint = hard_constraint_file.read()
     input_dict['hard_constraints'] = hard_constraint.split('\n')
 
+    breakDownLogicFile('Logic.txt', input_dict)
+    logicStatementConvertToNumbers(input_dict)
 
     # attributes_text_file = open('Attributes.txt', 'r')
     # attributes_listed = attributes_text_file.read()
@@ -62,15 +70,15 @@ def main():
 
 
     attribute_dict = convertAttributesToNumbers(input_dict['attributes'])
-    WriteToInputFile.writeToTheFile(attribute_dict, statement_count)
+    WriteToInputFile.writeToTheFile(attribute_dict, len(input_dict['hard_constraints']))
     test2_file = 'CNF.txt'
 
     if platform.system() == "Darwin":
-        os.system("clasp " + test2_file + " -n 2 > TEST.txt")
+        os.system("clasp " + test2_file + " -n 10 > TEST.txt")
     else:
         os.system("clasp " + test2_file + " -n 2 > TEST.txt")
 
-    myPyGUI = PyGUI()
+    # myPyGUI = PyGUI()
 
 
 def convertAttributesToNumbers(attributes):
@@ -112,6 +120,62 @@ def convertAttributesToNumbers(attributes):
 
     return attribute_dict
 
+
+def logicStatementConvertToNumbers(input_dict):
+    test = []
+    test2 = []
+    for index in range(len(input_dict['penalty_logic']['logic_stmts'])):
+        test.append(input_dict['penalty_logic']['logic_stmts'][index].split(' '))
+
+def breakDownLogicFile(file_name, input_dict):
+    p_logic_statements = []
+    plogic_plit_from_p = []
+
+    poss_logic_statements = []
+    poss_logic_plit_from_t = []
+
+    file = open(file_name, 'r')
+    file = file.read()
+    file = file.replace('\n', ';')
+    broken_by_logic_type = file.split(';;')
+
+    penalty_logic = broken_by_logic_type[0]
+    possibilistic_logic = broken_by_logic_type[1]
+    qualitative_choice_logic = broken_by_logic_type[2]
+
+    poss_logic_object = Objects.PenaltyLogic
+    penalty_logic = penalty_logic.split(':')
+    poss_logic_object.title = penalty_logic[0]
+
+    for index in range(len(penalty_logic)):
+        p_logic_statements = penalty_logic[index].split(';')
+
+    p_logic_statements.remove(p_logic_statements[0])
+
+    for index in range(len(p_logic_statements)):
+        plogic_plit_from_p.append(p_logic_statements[index].split(','))
+        input_dict['penalty_logic']['logic_stmts'].append(plogic_plit_from_p[index][0])
+        input_dict['penalty_logic']['penalty'].append(int(plogic_plit_from_p[index][1]))
+
+    # print(penalty_logic_dict)
+    print(input_dict['penalty_logic'])
+
+
+    poss_logic_object = Objects.PenaltyLogic
+    poss_logic = possibilistic_logic.split(':')
+    poss_logic_object.title = poss_logic[0]
+
+    for index in range(len(poss_logic)):
+        poss_logic_statements = poss_logic[index].split(';')
+
+    poss_logic_statements.remove(poss_logic_statements[0])
+
+    for index in range(len(poss_logic_statements)):
+        poss_logic_plit_from_t.append(poss_logic_statements[index].split(','))
+        input_dict['possibilistic_logic']['logic_stmts'].append(poss_logic_plit_from_t[index][0])
+        input_dict['possibilistic_logic']['tolerance'].append(float(poss_logic_plit_from_t[index][1]))
+
+    print(input_dict['possibilistic_logic'])
 
 
 main()
