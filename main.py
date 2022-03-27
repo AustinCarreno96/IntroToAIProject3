@@ -78,7 +78,8 @@ def main():
     else:
         os.system("clasp " + test2_file + " -n 2 > TEST.txt")
 
-    # myPyGUI = PyGUI()
+    # Call GUI
+    PyGUI(input_dict)
 
 
 def convertAttributesToNumbers(attributes):

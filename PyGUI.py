@@ -1,11 +1,13 @@
 from tkinter import *
 from tkinter import ttk
 import tkinter as tk
+# import main
 
 
 class PyGUI:
-    def __init__(self):
+    def __init__(self, input_dict):
         # Make and name TK GUI
+        self.dict = input_dict
         self.root = Tk()
         self.root.title("Project 3 AI")
 
@@ -119,6 +121,14 @@ class PyGUI:
         # Show tree
         self.tree_qual.pack()
 
+
+        # Read and Display to TreeView widgets
+        self.display_attributes()
+        self.display_constraints()
+        self.display_penalty()
+        self.display_possibilistic()
+        # self.display_qualitative()
+
         # Main loop for GUI
         self.root.mainloop()
 
@@ -128,3 +138,53 @@ class PyGUI:
 
     def delete_attribute(self, attribute):
         print("This will delete attributes")
+
+    # Displays Binary Attributes values
+    def display_attributes(self):
+        i = 0
+        while i < len(self.dict['attributes']):
+            attr_num = i + 1
+            attr_name = self.dict['attributes'][i][0]
+            attr_op1 = self.dict['attributes'][i][1]
+            attr_op2 = self.dict['attributes'][i][2]
+            self.tree_attr.insert(parent='', index='end', iid=i, values=(attr_num, attr_name, attr_op1, attr_op2))
+            i += 1
+
+    # Displays Hard Constraints variables
+    def display_constraints(self):
+        i = 0
+        while i < len(self.dict['hard_constraints']):
+            con_num = i + 1
+            con_name = self.dict['hard_constraints'][i]
+            if con_name == '':
+                break
+            self.tree_con.insert(parent='', index='end', iid=i, values=(con_num, con_name))
+            i += 1
+
+    # Displays Penalty Logic variables
+    def display_penalty(self):
+        i = 0
+        while i < len(self.dict['penalty_logic']['penalty']):
+            pen_num = i + 1
+            pen_pref = self.dict['penalty_logic']['logic_stmts'][i]
+            pen_penalty = self.dict['penalty_logic']['penalty'][i]
+            self.tree_pen.insert(parent='', index='end', iid=i, values=(pen_num, pen_pref, pen_penalty))
+            i += 1
+
+    # Displays Possibilistic Logic variables
+    def display_possibilistic(self):
+        i = 0
+        while i < len(self.dict['possibilistic_logic']['tolerance']):
+            possib_num = i + 1
+            possib_pref = self.dict['possibilistic_logic']['logic_stmts'][i]
+            possib_tol = self.dict['possibilistic_logic']['tolerance'][i]
+            self.tree_possib.insert(parent='', index='end', iid=i, values=(possib_num, possib_pref, possib_tol))
+            i += 1
+
+    # Displays Qualitative Form Logic variables
+    def display_qualitative(self):
+        i = 0
+        print("")
+
+
+
