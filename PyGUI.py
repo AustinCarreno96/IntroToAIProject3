@@ -8,118 +8,113 @@ class PyGUI:
         # Make and name TK GUI
         self.root = Tk()
         self.root.title("Project 3 AI")
-        self.root.geometry("900x800")
 
+        # Left Frame
+        self.frm_left = tk.LabelFrame(self.root, text="", labelanchor=N, padx=100, pady=50)
+        self.frm_left.grid(column=0, row=0)
 
-        # Attributes Frame
-        self.frm_attributes = tk.Frame(self.root)
-        self.frm_attributes.grid(column=0, row=0)
-        self.lbl_attributes = tk.Label(self.frm_attributes, text="Binary Attributes", anchor=N)
-        self.lbl_attributes.pack()
+        # Attribute Label
+        self.lbl_attr = Label(self.frm_left, text="Binary Attributes")
+        self.lbl_attr.pack()
 
         # Make tree view table for attributes
-        self.tree_attributes = ttk.Treeview(self.frm_attributes, height=10)
-        self.tree_attributes['columns'] = ("Attr #", "Attribute", "Option 1", "Option 2")
-        self.tree_attributes.column("#0", width=0)
-        self.tree_attributes.column("Attr #", width=80, anchor=CENTER)
-        self.tree_attributes.column("Attribute", width=80, anchor=W)
-        self.tree_attributes.column("Option 1", width=80, anchor=W)
-        self.tree_attributes.column("Option 2", width=80, anchor=W)
+        self.tree_attr = ttk.Treeview(self.frm_left, height=10)
+        self.tree_attr['columns'] = ("Attr #", "Attribute", "Option 1", "Option 2")
+        self.tree_attr.column("#0", width=0)
+        self.tree_attr.column("Attr #", width=100, minwidth=50, anchor=CENTER)
+        self.tree_attr.column("Attribute", width=100, minwidth=50, anchor=CENTER)
+        self.tree_attr.column("Option 1", width=100, minwidth=50, anchor=CENTER)
+        self.tree_attr.column("Option 2", width=100, minwidth=50, anchor=CENTER)
 
         # Attribute tree headers
-        self.tree_attributes.heading("Attr #", text="Attr #", anchor=CENTER)
-        self.tree_attributes.heading("Attribute", text="Attribute", anchor=W)
-        self.tree_attributes.heading("Option 1", text="Option 1", anchor=W)
-        self.tree_attributes.heading("Option 2", text="Option 2", anchor=W)
+        self.tree_attr.heading("Attr #", text="Attr #", anchor=CENTER)
+        self.tree_attr.heading("Attribute", text="Attribute", anchor=CENTER)
+        self.tree_attr.heading("Option 1", text="Option 1", anchor=CENTER)
+        self.tree_attr.heading("Option 2", text="Option 2", anchor=CENTER)
 
         # Show tree
-        self.tree_attributes.pack()
+        self.tree_attr.pack()
 
 
-        # Constraints Frame
-        self.frm_constraints = tk.Frame(self.root)
-        self.frm_constraints.grid(column=0, row=1)
-        self.lbl_constraints = tk.Label(self.frm_constraints, text="Hard Constraints")
-        self.lbl_constraints.pack()
+        # Constraints Label
+        self.lbl_con = Label(self.frm_left, text="Hard Constraints")
+        self.lbl_con.pack()
 
         # Make Constraints tree
-        self.tree_constraints = ttk.Treeview(self.frm_constraints, height=10)
-        self.tree_constraints['columns'] = ("Const #", "Constraint")
-        self.tree_constraints.column("#0", width=0)
-        self.tree_constraints.column("Const #", width=80, minwidth=20, anchor=CENTER)
-        self.tree_constraints.column("Constraint", width=240, minwidth=20, anchor=W)
+        self.tree_con = ttk.Treeview(self.frm_left, height=10)
+        self.tree_con['columns'] = ("Const #", "Constraint")
+        self.tree_con.column("#0", width=0)
+        self.tree_con.column("Const #", width=100, minwidth=20, anchor=CENTER)
+        self.tree_con.column("Constraint", width=300, minwidth=50, anchor=CENTER)
 
         # Constraints tree headers
-        self.tree_constraints.heading("Const #", text="Const #", anchor=CENTER)
-        self.tree_constraints.heading("Constraint", text="Constraint", anchor=W)
+        self.tree_con.heading("Const #", text="Const #", anchor=CENTER)
+        self.tree_con.heading("Constraint", text="Constraint", anchor=CENTER)
 
         # Show tree
-        self.tree_constraints.pack()
+        self.tree_con.pack()
 
 
-        # Penalty Logic Frame
-        self.frm_penalty = tk.Frame(self.root, padx=0, pady=10)
-        self.frm_penalty.grid(column=1, row=0)
-        self.lbl_penalty = tk.Label(self.frm_penalty, text="Penalty Logic")
-        self.lbl_penalty.pack()
+        # Right Frame
+        self.frm_right = LabelFrame(self.root, text="", padx=100, pady=25)
+        self.frm_right.grid(column=1, row=0)
+
+        # Penalty Logic Label
+        self.lbl_pen = Label(self.frm_right, text="Penalty Logic")
+        self.lbl_pen.pack()
 
         # Make tree view table for Penalty Logic
-        self.tree_penalty = ttk.Treeview(self.frm_penalty, height=10)
-        self.tree_penalty['columns'] = ("Pref #", "Preference", "Penalty")
-        self.tree_penalty.column("#0", width=0)
-        self.tree_penalty.column("Pref #", width=80, anchor=CENTER)
-        self.tree_penalty.column("Preference", width=160, anchor=W)
-        self.tree_penalty.column("Penalty", width=80, anchor=CENTER)
+        self.tree_pen = ttk.Treeview(self.frm_right, height=6)
+        self.tree_pen['columns'] = ("Pref #", "Preference", "Penalty")
+        self.tree_pen.column("#0", width=0)
+        self.tree_pen.column("Pref #", width=100, anchor=CENTER)
+        self.tree_pen.column("Preference", width=250, anchor=CENTER)
+        self.tree_pen.column("Penalty", width=100, anchor=CENTER)
 
-        # Attribute tree headers
-        self.tree_penalty.heading("Pref #", text="Pref #", anchor=CENTER)
-        self.tree_penalty.heading("Preference", text="Preference", anchor=W)
-        self.tree_penalty.heading("Penalty", text="Penalty", anchor=CENTER)
+        # Penalty Logic tree headers
+        self.tree_pen.heading("Pref #", text="Pref #", anchor=CENTER)
+        self.tree_pen.heading("Preference", text="Preference", anchor=CENTER)
+        self.tree_pen.heading("Penalty", text="Penalty", anchor=CENTER)
 
         # Show tree
-        self.tree_penalty.pack()
+        self.tree_pen.pack()
 
 
-        # Possibilistic Logic Frame
-        self.frm_possib = tk.Frame(self.root, padx=200, pady=10)
-        self.frm_possib.grid(column=1, row=1)
-        self.lbl_possib = tk.Label(self.frm_possib, text="Possibilistic Logic")
+        # Possibilistic Logic Label
+        self.lbl_possib = Label(self.frm_right, text="Possibilistic Logic")
         self.lbl_possib.pack()
 
-        # Make tree view table for attributes
-        self.tree_possib = ttk.Treeview(self.frm_possib, height=10)
+        # Make tree view table for possibilistic logics
+        self.tree_possib = ttk.Treeview(self.frm_right, height=6)
         self.tree_possib['columns'] = ("Pref #", "Preference", "Tolerance")
         self.tree_possib.column("#0", width=0)
-        self.tree_possib.column("Pref #", width=80, anchor=CENTER)
-        self.tree_possib.column("Preference", width=160, anchor=W)
-        self.tree_possib.column("Tolerance", width=80, anchor=CENTER)
+        self.tree_possib.column("Pref #", width=100, anchor=CENTER)
+        self.tree_possib.column("Preference", width=250, anchor=CENTER)
+        self.tree_possib.column("Tolerance", width=100, anchor=CENTER)
 
-
-        # Attribute tree headers
+        # Possibilistic tree headers
         self.tree_possib.heading("Pref #", text="Pref #", anchor=CENTER)
-        self.tree_possib.heading("Preference", text="Preference", anchor=W)
+        self.tree_possib.heading("Preference", text="Preference", anchor=CENTER)
         self.tree_possib.heading("Tolerance", text="Tolerance", anchor=CENTER)
 
         # Show tree
         self.tree_possib.pack()
 
 
-        # Qualitative Logic Frame
-        self.frm_qual = tk.Frame(self.root, padx=200, pady=10)
-        self.frm_qual.grid(column=1, row=2)
-        self.lbl_qual = tk.Label(self.frm_qual, text="Qualitative Logic")
+        # Qualitative Form Logic Label
+        self.lbl_qual = Label(self.frm_right, text="Qualitative Form Logic")
         self.lbl_qual.pack()
 
         # Make tree view table for attributes
-        self.tree_qual = ttk.Treeview(self.frm_qual, height=10)
+        self.tree_qual = ttk.Treeview(self.frm_right, height=6)
         self.tree_qual['columns'] = ("Pref #", "Preference")
         self.tree_qual.column("#0", width=0)
-        self.tree_qual.column("Pref #", width=80, anchor=CENTER)
-        self.tree_qual.column("Preference", width=240, anchor=W)
+        self.tree_qual.column("Pref #", width=100, anchor=CENTER)
+        self.tree_qual.column("Preference", width=350, anchor=CENTER)
 
         # Attribute tree headers
         self.tree_qual.heading("Pref #", text="Pref #", anchor=CENTER)
-        self.tree_qual.heading("Preference", text="Preference", anchor=W)
+        self.tree_qual.heading("Preference", text="Preference", anchor=CENTER)
 
         # Show tree
         self.tree_qual.pack()
