@@ -71,11 +71,11 @@ def main():
     test2_file = 'CNF.txt'
 
     if platform.system() == "Darwin":
-        os.system("clasp " + test2_file + " -n 10 > TEST.txt")
+        os.system("clasp " + test2_file + " -n 10 > ClaspOutput.txt")
     else:
-        os.system("clasp " + test2_file + " -n 2 > TEST.txt")
+        os.system("clasp " + test2_file + " -n 10 > ClaspOutput.txt")
 
-    # myPyGUI = PyGUI()
+    PyGUI(input_dict)
 # ----------------------------------------------------------------------------------------------------------------------
 
 
