@@ -28,20 +28,20 @@ class PyGUI:
     # Displays Binary Attributes values
     def display_attributes(self):
         i = 0
-        while i < len(self.dict['attributes']):
+        while i < len(self.dict['attributes']['words']):
             attr_num = i + 1
-            attr_name = self.dict['attributes'][i][0]
-            attr_op1 = self.dict['attributes'][i][1]
-            attr_op2 = self.dict['attributes'][i][2]
+            attr_name = self.dict['attributes']['words'][i][0]
+            attr_op1 = self.dict['attributes']['words'][i][1]
+            attr_op2 = self.dict['attributes']['words'][i][2]
             self.tree_attr.insert(parent='', index='end', iid=i, values=(attr_num, attr_name, attr_op1, attr_op2))
             i += 1
 
     # Displays Hard Constraints variables
     def display_constraints(self):
         i = 0
-        while i < len(self.dict['hard_constraints']):
+        while i < len(self.dict['hard_constraints']['stmts']):
             con_num = i + 1
-            con_name = self.dict['hard_constraints'][i]
+            con_name = self.dict['hard_constraints']['stmts'][i]
             if con_name == '':
                 break
             self.tree_con.insert(parent='', index='end', iid=i, values=(con_num, con_name))
@@ -70,7 +70,6 @@ class PyGUI:
     # Displays Qualitative Form Logic variables
     def display_qualitative(self):
         i = 0
-        print(self.dict)
         while i < len(self.dict['qualitative_choice_logic']):
             qual_num = i + 1
             qual_pref = self.dict['qualitative_choice_logic'][i]
@@ -174,7 +173,7 @@ class PyGUI:
         self.tree_possib.pack()
 
         # Qualitative Form Logic Label
-        self.lbl_qual = Label(self.frm_right, text="Qualitative Form Logic")
+        self.lbl_qual = Label(self.frm_right, text="Qualitative Choice Logic")
         self.lbl_qual.pack()
 
         # Make tree view table for attributes
@@ -256,7 +255,7 @@ class PyGUI:
         TODO: Waiting on logic for left side of exemplification tab
         '''''''''''
 
-        # Call logics for right side of exist tab
+        # Call logics for right side of exemplification tab
         self.display_penalty_output(self.frm_exemp_right)
         self.display_possib_output(self.frm_exemp_right)
         self.display_qualitative_output(self.frm_exemp_right)
@@ -269,15 +268,20 @@ class PyGUI:
         self.tab_opti.pack()
         self.tab_notebook.add(self.tab_opti, text="Optimization")
 
-        # Make right side of exemplification tab
+        # Make left side of optimization tab
+        self.frm_opti_left = Frame(self.tab_opti, padx=15)
+        self.frm_opti_left.grid(column=0, row=0)
+
+        # Make right side of optimization tab
         self.frm_opti_right = Frame(self.tab_opti)
         self.frm_opti_right.grid(column=1, row=0)
 
-        '''''''''''
-                TODO: Waiting on logic for left side of exemplification tab
-        '''''''''''
+        # Call logicss for left side of opti tab
+        self.display_opti_pen(self.frm_opti_left)
+        self.display_opti_possib(self.frm_opti_left)
+        self.display_opti_qual(self.frm_opti_left)
 
-        # Call logics for right side of exist tab
+        # Call logics for right side of opti tab
         self.display_penalty_output(self.frm_opti_right)
         self.display_possib_output(self.frm_opti_right)
         self.display_qualitative_output(self.frm_opti_right)
@@ -290,15 +294,20 @@ class PyGUI:
         self.tab_omni.pack()
         self.tab_notebook.add(self.tab_omni, text="Omni-Optimization")
 
-        # Make right side of exemplification tab
+        # Make left side of omni optimization tab
+        self.frm_omni_left = Frame(self.tab_omni, padx=15)
+        self.frm_omni_left.grid(column=0, row=0)
+
+        # Make right side of omni optimization tab
         self.frm_omni_right = Frame(self.tab_omni)
         self.frm_omni_right.grid(column=1, row=0)
 
-        '''''''''''
-                        TODO: Waiting on logic for left side of exemplification tab
-                '''''''''''
+        # Call logics for left side of omni tab
+        self.display_opti_pen(self.frm_omni_left)
+        self.display_opti_possib(self.frm_omni_left)
+        self.display_opti_qual(self.frm_omni_left)
 
-        # Call logics for right side of exist tab
+        # Call logics for right side of omni tab
         self.display_penalty_output(self.frm_omni_right)
         self.display_possib_output(self.frm_omni_right)
         self.display_qualitative_output(self.frm_omni_right)
@@ -388,3 +397,78 @@ class PyGUI:
 
         # Show tree
         self.tree_qualo.pack()
+
+
+    def display_opti_pen(self, input_frame):
+        # Label for optimization penalty output
+        self.lbl_opti_pen = Label(input_frame, text="Optimal Penalty Objects")
+        self.lbl_opti_pen.pack()
+
+        # Make Treeview widget for Optimal penalty output
+        self.tree_opti_pen = ttk.Treeview(input_frame, height=6)
+        self.tree_opti_pen.pack()
+
+        # Make columns for Treeview
+        self.tree_opti_pen['columns'] = ("Obj #", "CLASP", "Object")
+        self.tree_opti_pen.column("#0", width=0)
+        self.tree_opti_pen.column("Obj #", width=100)
+        self.tree_opti_pen.column("CLASP", width=200)
+        self.tree_opti_pen.column("Object", width=300)
+
+        # Make column headers for Treeview
+        self.tree_opti_pen.heading("Obj #", text="Obj #", anchor=CENTER)
+        self.tree_opti_pen.heading("CLASP", text="CLASP", anchor=CENTER)
+        self.tree_opti_pen.heading("Object", text="Object", anchor=CENTER)
+
+        # Show tree
+        self.tree_opti_pen.pack()
+
+
+    def display_opti_possib(self, input_frame):
+        # Label for optimization penalty output
+        self.lbl_opti_possib = Label(input_frame, text="Optimal Possibilistic Objects")
+        self.lbl_opti_possib.pack()
+
+        # Make Treeview widget for Optimal penalty output
+        self.tree_opti_possib = ttk.Treeview(input_frame, height=6)
+        self.tree_opti_possib.pack()
+
+        # Make columns for Treeview
+        self.tree_opti_possib['columns'] = ("Obj #", "CLASP", "Object")
+        self.tree_opti_possib.column("#0", width=0)
+        self.tree_opti_possib.column("Obj #", width=100)
+        self.tree_opti_possib.column("CLASP", width=200)
+        self.tree_opti_possib.column("Object", width=300)
+
+        # Make column headers for Treeview
+        self.tree_opti_possib.heading("Obj #", text="Obj #", anchor=CENTER)
+        self.tree_opti_possib.heading("CLASP", text="CLASP", anchor=CENTER)
+        self.tree_opti_possib.heading("Object", text="Object", anchor=CENTER)
+
+        # Show tree
+        self.tree_opti_possib.pack()
+
+
+    def display_opti_qual(self, input_frame):
+        # Label for optimization penalty output
+        self.lbl_opti_qual = Label(input_frame, text="Optimal Qualitative Choice Objects")
+        self.lbl_opti_qual.pack()
+
+        # Make Treeview widget for Optimal penalty output
+        self.tree_opti_qual = ttk.Treeview(input_frame, height=6)
+        self.tree_opti_qual.pack()
+
+        # Make columns for Treeview
+        self.tree_opti_qual['columns'] = ("Obj #", "CLASP", "Object")
+        self.tree_opti_qual.column("#0", width=0)
+        self.tree_opti_qual.column("Obj #", width=100)
+        self.tree_opti_qual.column("CLASP", width=200)
+        self.tree_opti_qual.column("Object", width=300)
+
+        # Make column headers for Treeview
+        self.tree_opti_qual.heading("Obj #", text="Obj #", anchor=CENTER)
+        self.tree_opti_qual.heading("CLASP", text="CLASP", anchor=CENTER)
+        self.tree_opti_qual.heading("Object", text="Object", anchor=CENTER)
+
+        # Show tree
+        self.tree_opti_qual.pack()

@@ -97,7 +97,7 @@ def main():
     breakDownLogicFile('Logic.txt', input_dict)
 
     # Converting words to numbers for clasp
-    statement_count = logicStatementConvertToNumbers(input_dict, statement_count)
+    statement_count = logicStatementConvertToNumbers(input_dict)
 
     # Removing 'NOT' from logic statements
     for index in range(len(input_dict['penalty_logic']['stmts_as_numbers'])):
@@ -147,9 +147,9 @@ def main():
     if platform.system() == "Darwin":
         os.system("clasp " + test2_file + " -n 0 > CLASPOutput.txt")
     else:
-        os.system("clasp " + test2_file + " -n 2 > CLASPOutput.txt")
+        os.system("clasp " + test2_file + " -n 0 > CLASPOutput.txt")
 
-    # myPyGUI = PyGUI(input_dict)
+    PyGUI(input_dict)
 # ----------------------------------------------------------------------------------------------------------------------
 
 
