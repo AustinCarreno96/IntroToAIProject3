@@ -11,8 +11,18 @@ class PyGUI:
         self.root = Tk()
         self.root.title("Project 3 AI")
 
+
+        # Create tab controller
+        self.tab_notebook = ttk.Notebook(self.root)
+        self.tab_notebook.pack(pady=5)
+
+        # Create input tab
+        self.tab_input = Frame(self.tab_notebook)
+        self.tab_input.pack()
+        self.tab_notebook.add(self.tab_input, text="Input")
+
         # Left Frame
-        self.frm_left = tk.LabelFrame(self.root, text="", labelanchor=N, padx=100, pady=50)
+        self.frm_left = tk.LabelFrame(self.tab_input, text="", labelanchor=N, padx=100, pady=50)
         self.frm_left.grid(column=0, row=0)
 
         # Attribute Label
@@ -58,7 +68,7 @@ class PyGUI:
 
 
         # Right Frame
-        self.frm_right = LabelFrame(self.root, text="", padx=100, pady=25)
+        self.frm_right = LabelFrame(self.tab_input, text="", padx=100, pady=46)
         self.frm_right.grid(column=1, row=0)
 
         # Penalty Logic Label
@@ -128,6 +138,31 @@ class PyGUI:
         self.display_penalty()
         self.display_possibilistic()
         # self.display_qualitative()
+
+
+        # Create Existence Tab
+        self.tab_exist = Frame(self.tab_notebook)
+        self.tab_exist.pack()
+        self.tab_notebook.add(self.tab_exist, text="Existence")
+
+
+        # Create Exemplification Tab
+        self.tab_exemp = Frame(self.tab_notebook)
+        self.tab_exemp.pack()
+        self.tab_notebook.add(self.tab_exemp, text="Exemplification")
+
+
+        # Create Optimization Tab
+        self.tab_opti = Frame(self.tab_notebook)
+        self.tab_opti.pack()
+        self.tab_notebook.add(self.tab_opti, text="Optimization")
+
+
+        # Create Omni-Optimization Tab
+        self.tab_omni = Frame(self.tab_notebook)
+        self.tab_omni.pack()
+        self.tab_notebook.add(self.tab_omni, text="Omni-Optimization")
+
 
         # Main loop for GUI
         self.root.mainloop()
