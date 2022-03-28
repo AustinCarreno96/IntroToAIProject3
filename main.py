@@ -2,8 +2,6 @@ from PyGUI import PyGUI
 import os
 import platform
 import WriteToInputFile
-import re
-import pandas as pandas
 import Objects
 
 # TODO: Things Needed to Be Done
@@ -21,7 +19,6 @@ import Objects
 #         objects
 
 def main():
-
     statement_count = 0
     input_dict = {
         'attributes': [],
@@ -79,6 +76,7 @@ def main():
         os.system("clasp " + test2_file + " -n 2 > TEST.txt")
 
     # myPyGUI = PyGUI()
+# ----------------------------------------------------------------------------------------------------------------------
 
 
 def convertAttributesToNumbers(attributes):
@@ -119,20 +117,24 @@ def convertAttributesToNumbers(attributes):
     }
 
     return attribute_dict
-
+# ----------------------------------------------------------------------------------------------------------------------
 
 def logicStatementConvertToNumbers(input_dict):
     test = []
     test2 = []
     for index in range(len(input_dict['penalty_logic']['logic_stmts'])):
         test.append(input_dict['penalty_logic']['logic_stmts'][index].split(' '))
+# ----------------------------------------------------------------------------------------------------------------------
+
 
 def breakDownLogicFile(file_name, input_dict):
     p_logic_statements = []
-    plogic_plit_from_p = []
-
     poss_logic_statements = []
+    qual_logic_statements = []
+
+    plogic_plit_from_p = []
     poss_logic_plit_from_t = []
+
 
     file = open(file_name, 'r')
     file = file.read()
@@ -143,9 +145,8 @@ def breakDownLogicFile(file_name, input_dict):
     possibilistic_logic = broken_by_logic_type[1]
     qualitative_choice_logic = broken_by_logic_type[2]
 
-    poss_logic_object = Objects.PenaltyLogic
+
     penalty_logic = penalty_logic.split(':')
-    poss_logic_object.title = penalty_logic[0]
 
     for index in range(len(penalty_logic)):
         p_logic_statements = penalty_logic[index].split(';')
@@ -157,13 +158,8 @@ def breakDownLogicFile(file_name, input_dict):
         input_dict['penalty_logic']['logic_stmts'].append(plogic_plit_from_p[index][0])
         input_dict['penalty_logic']['penalty'].append(int(plogic_plit_from_p[index][1]))
 
-    # print(penalty_logic_dict)
-    print(input_dict['penalty_logic'])
 
-
-    poss_logic_object = Objects.PenaltyLogic
     poss_logic = possibilistic_logic.split(':')
-    poss_logic_object.title = poss_logic[0]
 
     for index in range(len(poss_logic)):
         poss_logic_statements = poss_logic[index].split(';')
@@ -175,7 +171,15 @@ def breakDownLogicFile(file_name, input_dict):
         input_dict['possibilistic_logic']['logic_stmts'].append(poss_logic_plit_from_t[index][0])
         input_dict['possibilistic_logic']['tolerance'].append(float(poss_logic_plit_from_t[index][1]))
 
-    print(input_dict['possibilistic_logic'])
+
+    qual_statements = qualitative_choice_logic.split(':')
+
+    for index in range(len(qual_statements)):
+        qual_logic_statements = (qual_statements[index].split(';'))
+
+    qual_logic_statements.remove(qual_logic_statements[0])
+    input_dict['qualitative_choice_logic'] = qual_logic_statements
+# ----------------------------------------------------------------------------------------------------------------------
 
 
 main()
